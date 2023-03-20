@@ -136,17 +136,10 @@ export class SesameBot {
   }
 
   private setSwitchStatus(status: CHSesame2MechStatus): void {
-    this.#on = status.isInLockRange;
-
     const logPrefix = this.bot.name ?? this.bot.uuid;
     this.platform.log.info(
       `${logPrefix} - Current state: ${this.getOn() ? "On" : "Off"}`,
     );
-
-    // Update button service
-    this.#switchService
-      .getCharacteristic(this.platform.Characteristic.On)
-      .updateValue(this.getOn());
 
     // Update battery service
     this.#batteryLevel = status.batteryPercentage;
