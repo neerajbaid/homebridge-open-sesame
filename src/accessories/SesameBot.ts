@@ -102,8 +102,14 @@ export class SesameBot {
     return this.#on;
   }
 
-  private async setOn(_: CharacteristicValue): Promise<void> {
+  private async setOn(value: CharacteristicValue): Promise<void> {
     const deviceName = this.bot.name ?? this.bot.uuid;
+
+    this.#on = value
+    this.#switchService.updateCharacteristic(
+      this.platform.Characteristic.On,
+      value,
+    );
 
     this.platform.log.info(
       `Sending request for ${deviceName} to API. cmd: click(${Command.click})`,
