@@ -112,16 +112,6 @@ export class SesameBot {
     try {
       await this.#mutex.runExclusive(async () => {
         await this.#client.postCmd(Command.click, this.platform.config.name);
-
-        // Ensure the status to be off.
-        // Circle action does not update iot status.
-        setTimeout(() => {
-          this.#on = false;
-          this.#switchService.updateCharacteristic(
-            this.platform.Characteristic.On,
-            false,
-          );
-        }, 3.5 * 1000);
       });
     } catch (error) {
       if (error instanceof Error) {
