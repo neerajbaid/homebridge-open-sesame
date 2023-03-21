@@ -103,6 +103,8 @@ export class SesameBot {
   }
 
   private async setOn(value: CharacteristicValue): Promise<void> {
+    if (value == this.getOn()) { return }
+
     const deviceName = this.bot.name ?? this.bot.uuid;
 
     this.#on = value
